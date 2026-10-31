@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Check activity form on save",
+      "trigger": "PostFileSave",
+      "action": {
+        "type": "agent",
+        "prompt": "Check that index.html still contains the activity log form with project, task, date, time, hours and rating fields. If anything is missing, tell me what and fix it."
+      },
+      "description": "When index.html is saved, confirm the activity form is still there.",
+      "matcher": "index\\.html$",
+      "enabled": true
+    }
+  ]
+}

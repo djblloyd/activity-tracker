@@ -1,0 +1,46 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+}
+
+#app {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+#activity-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.activity-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.35);
+}
+
+.activity-field .field-label {
+  opacity: 0.7;
+}
+
+.stars {
+  letter-spacing: 0.1em;
+}
+
+.star.filled {
+  color: #f5a623;
+}
+
+.empty-state {
+  list-style: none;
+  opacity: 0.7;
+  font-style: italic;
+}

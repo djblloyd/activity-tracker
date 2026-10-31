@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ActivityTracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <h1>ActivityTracker</h1>
+
+      <section aria-labelledby="log-heading">
+        <h2 id="log-heading">Log an activity</h2>
+        <form id="activity-form" novalidate>
+          <div class="field">
+            <label for="project">Project</label>
+            <input type="text" id="project" name="project" />
+            <p class="error" data-error-for="project" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="task">Task</label>
+            <input type="text" id="task" name="task" />
+            <p class="error" data-error-for="task" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" />
+            <p class="error" data-error-for="date" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="time">Time</label>
+            <input type="time" id="time" name="time" />
+            <p class="error" data-error-for="time" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="hours">Hours</label>
+            <input type="number" id="hours" name="hours" step="any" min="0" />
+            <p class="error" data-error-for="hours" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <span id="rating-label">Liked rating</span>
+            <div
+              id="rating"
+              class="rating"
+              role="radiogroup"
+              aria-labelledby="rating-label"
+            >
+              <!-- 5 star controls rendered by the UI layer (1-5) -->
+            </div>
+            <p class="error" data-error-for="rating" role="alert"></p>
+          </div>
+
+          <button type="submit">Add activity</button>
+          <p class="status" id="form-status" role="status"></p>
+        </form>
+      </section>
+
+      <section aria-labelledby="best-heading">
+        <h2 id="best-heading">Best-rated activity</h2>
+        <div id="best-rated"></div>
+      </section>
+
+      <section aria-labelledby="list-heading">
+        <h2 id="list-heading">Activities</h2>
+        <p class="status" id="load-status" role="status"></p>
+        <ul id="activity-list"></ul>
+      </section>
+    </main>
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>
