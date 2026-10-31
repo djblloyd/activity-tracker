@@ -76,47 +76,122 @@ This runs the Vitest suite once (`vitest --run`).
 
 ## Deployment
 
-ActivityTracker is a fully static site — just `index.html`, `styles.css`, and
-the `src/` modules. There is no build step and no server-side code, so you can
-host it on any static file host. The `test/` directory, `node_modules/`, and
-project config are only needed for development and don't need to be deployed.
+New to this project? Read this section top to bottom — it assumes no prior
+knowledge of the app and walks you from a fresh checkout to a live site.
 
-### Files to deploy
+### What you need to know first
+
+ActivityTracker is a **fully static site**: just `index.html`, `styles.css`, and
+the `src/` JavaScript modules. There is **no build step** and **no server-side
+code**, so "deploying" means nothing more than copying those files to a web host
+that serves static files. If you've looked for a `build` script and not found
+one, that's expected — there isn't one.
+
+**No configuration is required.** The app has no environment variables, no
+secrets, no API keys, and no backend to connect to. There is nothing to
+configure before or after deploying.
+
+### Prerequisites
+
+- A copy of this repository (clone it, or download the files).
+- One static host account for your chosen option below (for example, a GitHub
+  account for GitHub Pages). Nothing needs to be installed locally just to
+  deploy.
+- Node.js is **only** needed if you want to run the tests first (see
+  [Running tests](#running-tests)); it is not required to deploy.
+
+### Which files get deployed
+
+Deploy these, keeping the folder layout intact:
 
 - `index.html`
 - `styles.css`
 - `src/` (all modules)
 
-### Option 1 — GitHub Pages
+Everything else — `test/`, `node_modules/`, `package.json`, `vitest.config.js`,
+and the `.kiro/` folder — is for development only and does **not** need to be
+deployed.
 
-1. Push the project to a GitHub repository (the `main` branch).
-2. In the repository, go to **Settings → Pages**.
-3. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
-4. Choose the `main` branch and the `/ (root)` folder, then **Save**.
-5. GitHub publishes the site at `https://<username>.github.io/<repository>/`.
+### First-time deploy (recommended path: GitHub Pages)
 
-Because the app has no build step, the repository root is served as-is.
+If you've never deployed this app, use GitHub Pages. It's free, needs no tools
+installed locally, and serves the repository as-is.
 
-### Option 2 — Netlify, Vercel, or similar
+1. **Get the code onto GitHub.** If the project isn't already in a GitHub repo,
+   create one and push it:
+   ```bash
+   git remote add origin https://github.com/<your-username>/activity-tracker.git
+   git push -u origin main
+   ```
+   If it's already on GitHub, skip this step.
+2. **Open the Pages settings.** In your repository on github.com, go to
+   **Settings → Pages**.
+3. **Choose the source.** Under **Build and deployment**, set **Source** to
+   **Deploy from a branch**.
+4. **Pick the branch and folder.** Select the `main` branch and the `/ (root)`
+   folder, then click **Save**.
+5. **Wait for publish.** GitHub builds and publishes within a minute or two,
+   then shows the live URL: `https://<your-username>.github.io/activity-tracker/`.
+6. **Verify it works** (see [Verifying the deployment](#verifying-the-deployment)).
+
+That's the whole process — because there's no build step, GitHub serves the
+repository root directly.
+
+### Other hosting options
+
+#### Netlify, Vercel, or similar
 
 1. Connect your Git repository to the host, or drag-and-drop the project folder.
-2. Leave the build command empty (there is nothing to build).
+2. Leave the build command **empty** (there is nothing to build).
 3. Set the publish/output directory to the project root (`.`).
 4. Deploy. The host serves the static files directly.
 
-### Option 3 — Any static web server
+#### Any static web server
 
-Copy `index.html`, `styles.css`, and `src/` to the server's document root
-(for example, an Nginx or Apache web root, or an S3 bucket configured for
-static website hosting). No special server configuration is required beyond
-serving the files with their correct MIME types, which every standard web
-server does for `.html`, `.css`, and `.js`.
+Copy `index.html`, `styles.css`, and `src/` to the server's document root (for
+example, an Nginx or Apache web root, or an S3 bucket configured for static
+website hosting). No special server configuration is required beyond serving the
+files with their correct MIME types, which every standard web server does for
+`.html`, `.css`, and `.js`.
+
+### Verifying the deployment
+
+After deploying, confirm the app actually works end to end:
+
+1. Open the deployed URL in a browser.
+2. Check that the **ActivityTracker** heading and the "Log an activity" form
+   appear, with no errors in the browser's developer console.
+3. Add an activity: fill in the form and click **Add activity**. It should
+   appear in the **Activities** list and a best-rated entry should show.
+4. **Reload the page.** The activity should still be there — that confirms
+   `localStorage` persistence is working over the deployed origin.
+
+If the page loads but the form or list never appears and the console shows a
+module-loading error, the files are likely being served over `file://` or with
+the wrong MIME type. Serve them over HTTP(S) from a real web server (see the
+[Getting started](#getting-started) note about local servers).
+
+### Rolling back a deployment
+
+- **GitHub Pages / Git-based hosts (Netlify, Vercel):** revert the bad change in
+  Git and push. Pages and most Git-connected hosts redeploy automatically from
+  the latest commit:
+  ```bash
+  git revert <bad-commit-sha>
+  git push
+  ```
+  Netlify and Vercel also keep previous deploys in their dashboard, so you can
+  instantly roll back to an earlier one without a Git change.
+- **Manual static server:** redeploy the previous copy of `index.html`,
+  `styles.css`, and `src/` (keep a backup of the last known-good version before
+  overwriting).
 
 ### Note on data
 
 All activity data is stored in each visitor's browser (`localStorage`). Data is
 per-browser and per-origin; it is not shared between users or devices, and the
-deployment itself stores nothing.
+deployment itself stores nothing. Redeploying the app does not touch or reset
+anyone's stored activities.
 
 ## License
 
