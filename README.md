@@ -12,6 +12,7 @@ your best-rated activity.
 - Activities persist locally in the browser via `localStorage` — no account or
   backend required.
 - Highlights your best-rated activity.
+- Light/dark theme toggle that follows your system setting until you pick one.
 - Graceful handling of storage failures and corrupt stored data.
 
 ## Tech stack
@@ -33,6 +34,7 @@ activity-tracker/
 │   ├── validation.js     # Form input validation
 │   ├── serialization.js  # Serialize / deserialize the activity list
 │   ├── storage.js        # localStorage read/write wrapper
+│   ├── theme.js          # Light/dark theme toggle
 │   └── ui.js             # Rendering and DOM updates
 └── test/                 # Vitest test suite
 ```

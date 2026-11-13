@@ -3,6 +3,7 @@
 import { validateActivityInput } from './validation.js';
 import { createActivity } from './activity.js';
 import * as storage from './storage.js';
+import { initTheme } from './theme.js';
 import {
   renderActivityList,
   renderBestRated,
@@ -145,6 +146,8 @@ function handleSubmit(event, form) {
  * @param {Document} [doc]
  */
 export function init(doc = document) {
+  initTheme(doc);
+
   const loaded = storage.load();
 
   state.activities = loaded.list;

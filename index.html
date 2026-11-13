@@ -5,10 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ActivityTracker</title>
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      // Apply the saved theme before first paint to avoid a flash of the wrong theme.
+      try {
+        var t = localStorage.getItem('activityTracker.theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <main id="app">
-      <h1>ActivityTracker</h1>
+      <header class="app-header">
+        <h1>ActivityTracker</h1>
+        <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false">
+          ☾ Dark mode
+        </button>
+      </header>
 
       <section aria-labelledby="log-heading">
         <h2 id="log-heading">Log an activity</h2>

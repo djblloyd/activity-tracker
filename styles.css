@@ -1,11 +1,75 @@
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --surface: #ffffff;
+  --border: rgba(128, 128, 128, 0.35);
+  --input-border: #8a8a8a;
+  --error: #b3261e;
+  --star: #f5a623;
+}
+
+/* Dark tokens: used when the system prefers dark and no choice is saved,
+   or when the user has chosen dark explicitly. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #15171a;
+    --fg: #e6e6e6;
+    --surface: #1f2226;
+    --border: rgba(160, 160, 160, 0.3);
+    --input-border: #5c626b;
+    --error: #ff8a80;
+    --star: #ffc04d;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #15171a;
+  --fg: #e6e6e6;
+  --surface: #1f2226;
+  --border: rgba(160, 160, 160, 0.3);
+  --input-border: #5c626b;
+  --error: #ff8a80;
+  --star: #ffc04d;
 }
 
 body {
   margin: 0;
   padding: 1rem;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.theme-toggle {
+  font: inherit;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--input-border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--fg);
+  cursor: pointer;
+}
+
+input,
+button {
+  background: var(--surface);
+  color: var(--fg);
+  border: 1px solid var(--input-border);
+}
+
+.error {
+  color: var(--error);
 }
 
 #app {
@@ -24,7 +88,7 @@ body {
   flex-wrap: wrap;
   gap: 0.75rem;
   padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.35);
+  border-bottom: 1px solid var(--border);
 }
 
 .activity-field .field-label {
@@ -36,7 +100,7 @@ body {
 }
 
 .star.filled {
-  color: #f5a623;
+  color: var(--star);
 }
 
 .empty-state {
